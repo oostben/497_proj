@@ -5,7 +5,8 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     pass
-
+    def __str__(self):
+        return self.username
 
 class University(models.Model):
     name = models.CharField(max_length=500)
