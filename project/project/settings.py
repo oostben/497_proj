@@ -123,4 +123,5 @@ STATIC_URL = "/static/"
 
 AUTH_USER_MODEL = "ticketswap.User"
 
-LOGIN_REDIRECT_URL = '/ticketswap'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
