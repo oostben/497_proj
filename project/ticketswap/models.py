@@ -7,8 +7,10 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+
 class University(models.Model):
     name = models.CharField(max_length=500)
+    domain_name = models.CharField(max_length=100)
 
 
 class Event(models.Model):
