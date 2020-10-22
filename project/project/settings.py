@@ -55,7 +55,7 @@ ROOT_URLCONF = "project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [str(BASE_DIR.joinpath('templates'))],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -122,3 +122,5 @@ STATIC_URL = "/static/"
 
 
 AUTH_USER_MODEL = "ticketswap.User"
+
+LOGIN_REDIRECT_URL = '/ticketswap'
