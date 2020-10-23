@@ -6,13 +6,14 @@ from django.contrib.auth.models import AbstractUser
 class University(models.Model):
     name = models.CharField(max_length=500)
     domain_name = models.CharField(max_length=100)
-    
+
     def __str__(self):
         return self.name
 
 
 class User(AbstractUser):
     university = models.ForeignKey(University, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.username
 

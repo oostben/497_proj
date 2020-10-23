@@ -9,41 +9,46 @@ from .models import Event, University
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'registration/signup.html'
+    success_url = reverse_lazy("login")
+    template_name = "registration/signup.html"
+
 
 class EventCreate(CreateView):
     model = Event
-    fields = ['name', 'time', 'location', 'description','universities']
-    success_url = '/ticketswap/'
+    fields = ["name", "time", "location", "description", "universities"]
+    success_url = "/ticketswap/"
 
 
 class EventUpdate(UpdateView):
     model = Event
-    fields = ['name', 'time', 'location', 'description', 'universities']
-    success_url = '/ticketswap/'
+    fields = ["name", "time", "location", "description", "universities"]
+    success_url = "/ticketswap/"
+
 
 class EventDelete(DeleteView):
     model = Event
-    success_url = reverse_lazy('/ticketswap/')
+    success_url = reverse_lazy("/ticketswap/")
 
-#///////////////////////////////////////////
+
+# ///////////////////////////////////////////
+
 
 class UniversityCreate(CreateView):
     model = University
-    fields = ['name']
-    success_url = '/ticketswap/'
+    fields = ["name"]
+    success_url = "/ticketswap/"
 
 
 class UniversityUpdate(UpdateView):
     model = University
-    fields = ['name']
-    success_url = '/ticketswap/'
+    fields = ["name"]
+    success_url = "/ticketswap/"
 
 
 class UniversityDelete(DeleteView):
     model = University
-    success_url = reverse_lazy('/ticketswap/')
+    success_url = reverse_lazy("/ticketswap/")
+
 
 def index(request):
     return HttpResponse("Hello! Welcome to the index of ticketswap")
