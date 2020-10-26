@@ -26,6 +26,9 @@ class Event(models.Model):
 
     universities = models.ManyToManyField(University)
 
+    def __str__(self):
+        return f"{self.name} - {self.location}"
+
 
 class Listing(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

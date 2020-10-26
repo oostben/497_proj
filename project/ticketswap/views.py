@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .forms import CustomUserCreationForm
-from .models import Event, University
+from .models import Event, Listing, University
 
 
 class SignUpView(CreateView):
@@ -31,6 +31,23 @@ class EventDelete(DeleteView):
     success_url = reverse_lazy("/ticketswap/")
 
 
+class ListingCreate(CreateView):
+    model = Listing
+    fields = ["user", "event", "pub_date", "price", "quantity", "description"]
+    success_url = "/ticketswap/"
+
+
+class ListingUpdate(UpdateView):
+    model = Listing
+    fields = ["user", "event", "pub_date", "price", "quantity", "description"]
+    success_url = "/ticketswap/"
+
+
+class ListingDelete(DeleteView):
+    model = Listing
+    success_url = reverse_lazy("/ticketswap/")
+
+
 # ///////////////////////////////////////////
 
 
@@ -53,6 +70,6 @@ class UniversityDelete(DeleteView):
 
 @login_required
 def index(request):
-    args = {"events": Event.objects.all()}  # TODO filter on uno
+    args = {"events": Event.objects.all()}  # TODO filter on uni
 
     return render(request, "home.html", args)

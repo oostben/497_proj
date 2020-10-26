@@ -12,18 +12,7 @@ urlpatterns = [
     path("event/create/", views.EventCreate.as_view(), name="event_create"),
     path("event/<pk>/update/", views.EventUpdate.as_view(), name="event_update"),
     path("event/<pk>/delete/", views.EventCreate.as_view(), name="event_delete"),
-    path(
-        "university/create/", views.UniversityCreate.as_view(), name="university_create"
-    ),
-    path(
-        "university/<pk>/update/",
-        views.UniversityUpdate.as_view(),
-        name="university_update",
-    ),
-    path(
-        "university/<pk>/delete/",
-        views.UniversityCreate.as_view(),
-        name="university_delete",
-    ),
-    # path("", TemplateView.as_view(template_name="home.html"), name="home"),
+    path("listing/create/", views.ListingCreate.as_view(), name="listing_create"),
+    path("listing/<pk>/update/", views.ListingUpdate.as_view(), name="listing_update"),
+    path("listing/<pk>/delete/", views.ListingCreate.as_view(), name="listing_delete"),
 ]
