@@ -4,9 +4,17 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+
+
+
+{% for event in events %}
+<table>
+    <a href="/ticketswap/event/{{ event.id }}/update" target="_blank"> {{ event.name }}</a>
+</table>
+{% endfor %}
+
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">Log In</a>

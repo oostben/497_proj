@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -50,5 +51,8 @@ class UniversityDelete(DeleteView):
     success_url = reverse_lazy("/ticketswap/")
 
 
+@login_required
 def index(request):
-    return HttpResponse("Hello! Welcome to the index of ticketswap")
+    args = {"events": Event.objects.all()}  # TODO filter on uno
+
+    return render(request, "home.html", args)
