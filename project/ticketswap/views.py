@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.detail import DetailView
 from .forms import CustomUserCreationForm
 from .models import Event, Listing, University
 
@@ -48,7 +49,12 @@ class ListingDelete(DeleteView):
     success_url = reverse_lazy("/ticketswap/")
 
 
-# ///////////////////////////////////////////
+class ListingDetail(DetailView):
+    model = Listing
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 
 class UniversityCreate(CreateView):

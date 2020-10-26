@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Listing for object.event.name{% endblock %}
+
+{% block content %}
+<h3>{{ object.event.name }}</h2>
+<ul>
+    <li>{{ object.event.name }}</li>
+    <li>{{ object.event.location }}</li>
+    <li>{{ object.event.time }}</li>
+</ul>
+
+<h3>Ticket info</h2>
+<ul>
+    <li>Seller: {{ object.user.username }}</li>
+    <li>Price: {{ object.price }}</li>
+    <li>Quantity available: {{ object.quantity }}</li>
+</ul>
+
+<h3>Purchase</h2>
+<form action="/ticketswap/listing/{{ object.id }}/purchase" method="post">
+    <label for="quantity">Quantity</label>
+
+    <input type="text" name="quantity" 
+    {% if object.quantity == 1 %}
+      placeholder="1"
+    {% else %}
+      placeholder="1 - {{ object.quantity }}"
+    {% endif %}
+    id="quantity" required>
+
+    <br>
+    <button class="btn btn-primary" type="submit">Buy</submit>
+</form>
+{% endblock %}

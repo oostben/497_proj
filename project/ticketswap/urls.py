@@ -13,6 +13,11 @@ urlpatterns = [
     path("event/<pk>/update/", views.EventUpdate.as_view(), name="event_update"),
     path("event/<pk>/delete/", views.EventCreate.as_view(), name="event_delete"),
     path("listing/create/", views.ListingCreate.as_view(), name="listing_create"),
+    path(
+        "listing/<pk>/detail/",
+        views.ListingDetail.as_view(template_name="listing_detail.html"),
+        name="listing_detail",
+    ),
     path("listing/<pk>/update/", views.ListingUpdate.as_view(), name="listing_update"),
     path("listing/<pk>/delete/", views.ListingCreate.as_view(), name="listing_delete"),
 ]
