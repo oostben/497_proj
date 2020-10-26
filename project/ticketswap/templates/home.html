@@ -9,11 +9,15 @@
 
 {% for event in events %}
 <table>
-    ES 1) home page with proper table (inc. name, location, filtering by uni, etc.)
+    <!-- ES 1) home page with proper table (inc. name, location, filtering by uni, etc.)
     DB 2) view event page (list of listings, link to create a listing for this event)
     BO 3) profile page (active listings)
-    PG 4) view listing page (with buy options and link to user profile)
-
+    PG 4) view listing page (with buy options and link to user profile) -->
+    <tr>
+      <th>Event Name</th>
+      <th>Location</th>
+      <th>University</th>
+    </tr>
 
     <a href="/ticketswap/event/{{ event.id }}/update" target="_blank"> {{ event.name }}</a>
 </table>
