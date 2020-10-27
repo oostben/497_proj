@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Listings for object.event.name{% endblock %}
+
+
+
+{% block content %}
+
+{% for listing in listings %}
+<table>
+
+    <a href="/ticketswap/listing/{{ listing.id }}/detail"> {{ listing.user }} - ${{ listing.price }} - Quantity: {{ listing.quantity }}</a>
+</table>
+{% endfor %}
+
+{% endblock %}
