@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from .forms import CustomUserCreationForm
-from .models import Event, Listing, University
+from .models import Event, Listing, University, User
 
 
 class SignUpView(CreateView):
@@ -74,12 +74,27 @@ class UniversityDelete(DeleteView):
     success_url = reverse_lazy("/ticketswap/")
 
 
+
+class UserUpdate(UpdateView):
+    model = User
+    fields = ["username", "email", "university"]
+    success_url = "/ticketswap/"
+
+
+class UserDelete(DeleteView):
+    model = User
+    success_url = "/ticketswap/accounts/login"
+
 def eventListings(request, pk):
     pk = 1 # TOD0: pk = the event.id we are going to
     args = {"listings": Listing.objects.all()}  # TODO filter on event
 
     return render(request, "event_listings.html", args)
 
+@login_required
+def profile_page(request):
+    args = {"listings" : Listing.objects.all()} 
+    return render(request, "profile_page.html", args)
 
 @login_required
 def index(request):

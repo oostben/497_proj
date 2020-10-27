@@ -15,8 +15,7 @@ class CustomUserCreationForm(UserCreationForm):
         email = self.cleaned_data["email"]
         email_domain_name = email.split("@")[-1]
 
-        breakpoint()
-
+        print(uni.domain_name, " " , email_domain_name)
         if uni.domain_name != email_domain_name:
             raise forms.ValidationError(
                 f"Email is not a valid {uni.name} email. Must have {uni.domain_name} domain name."

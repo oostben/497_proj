@@ -6,25 +6,26 @@
 {% block content %}
 
 
-
-{% for event in events %}
-<table>
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <br>
+  {% for event in events %}
+  <table>
     <!-- ES 1) home page with proper table (inc. name, location, filtering by uni, etc.)
     DB 2) view event page (list of listings, link to create a listing for this event)
     BO 3) profile page (active listings)
     PG 4) view listing page (with buy options and link to user profile) -->
     <tr>
-      <th>Event Name</th>
-      <th>Location</th>
-      <th>University</th>
+      <th>In {{ event.location }} at </th>
+
+      {% for uni in event.universities.all %}
+        <th>{{ uni }}</th>
+      {% endfor %}
     </tr>
 
     <a href="/ticketswap/event/{{ event.id }}/listings"> {{ event.name }}</a>
 </table>
 {% endfor %}
-
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">Log In</a>

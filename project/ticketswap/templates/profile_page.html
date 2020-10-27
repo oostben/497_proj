@@ -1,0 +1,44 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+    <br>
+    You are registered at {{ user.university }}
+    <br>
+
+    <a href="{% url 'logout' %}">Log Out</a>
+    <br>
+    <a href="/ticketswap/user/{{ user.pk }}/update">Update Profile</a>
+    <br>
+    <a href="/ticketswap/accounts/password_change">Change Password</a>
+    <br>
+    <a href="/ticketswap/user/{{ user.pk }}/delete">Delete Profile</a>
+    <br>
+     
+    My listings:
+    <br>
+    {% for listing in listings %}
+        {% if listing.user == user %}
+
+        <table>
+        
+            <a href="/ticketswap/listing/{{ listing.id }}/detail"> {{ listing.user }} - ${{ listing.price }} - Quantity: {{ listing.quantity }}</a>
+        </table>
+        {% endif %}
+    {% endfor %}
+
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+{% endif %}
+
+<br>
+
+
+{% endblock %}
