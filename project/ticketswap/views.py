@@ -74,6 +74,13 @@ class UniversityDelete(DeleteView):
     success_url = reverse_lazy("/ticketswap/")
 
 
+def eventListings(request, pk):
+    pk = 1 # TOD0: pk = the event.id we are going to
+    args = {"listings": Listing.objects.all()}  # TODO filter on event
+
+    return render(request, "event_listings.html", args)
+
+
 @login_required
 def index(request):
     args = {"events": Event.objects.all()}  # TODO filter on uni

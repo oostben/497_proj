@@ -20,4 +20,5 @@ urlpatterns = [
     ),
     path("listing/<pk>/update/", views.ListingUpdate.as_view(), name="listing_update"),
     path("listing/<pk>/delete/", views.ListingCreate.as_view(), name="listing_delete"),
+    path("event/<pk>/listings/", views.eventListings, name="event_listings")
 ]
