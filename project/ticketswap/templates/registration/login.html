@@ -5,9 +5,15 @@
 
 {% block content %}
 <h2>Log In</h2>
+
+
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit">Log In</button>
 </form>
+
+<br>
+Don't have an account? <a href="/ticketswap/accounts/signup/">Sign Up</a>
+
 {% endblock %}
