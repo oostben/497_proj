@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django import forms
+from django.forms import widgets
 
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -17,7 +19,13 @@ class SignUpView(CreateView):
 
 class EventCreate(CreateView):
     model = Event
-    fields = ["name", "time", "location", "description", "universities"]
+    fields = ["name", "date", "location", "description", "universities"]
+    def get_form(self):
+        '''add date picker in forms'''
+        form = super(EventCreate, self).get_form()
+
+        form.fields['date'].widget = forms.SelectDateWidget()
+        return form
     success_url = "/ticketswap/"
 
 
@@ -34,7 +42,18 @@ class EventDelete(DeleteView):
 
 class ListingCreate(CreateView):
     model = Listing
-    fields = ["user", "event", "pub_date", "price", "quantity", "description"]
+    fields = ["event", "price", "quantity", "description"]
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.user = user
+        form.instance.universiy = user
+        return super().form_valid(form)
+
+    # def get_form(self):
+    #     '''add date picker in forms'''
+    #     form = super(ListingCreate, self).get_form()
+    #     form.fields['pub_date'].widget = forms.SelectDateWidget()
+    #     return form
     success_url = "/ticketswap/"
 
 
@@ -86,18 +105,21 @@ class UserDelete(DeleteView):
     success_url = "/ticketswap/accounts/login"
 
 def eventListings(request, pk):
-    pk = 1 # TOD0: pk = the event.id we are going to
-    args = {"listings": Listing.objects.all()}  # TODO filter on event
+    args = {"listings": Listing.objects.filter(event=pk)}  # TODO filter on event
+
+    # args = {"listings": Listing.objects.filter(event ==pk)}  # TODO filter on event
 
     return render(request, "event_listings.html", args)
 
 @login_required
 def profile_page(request):
-    args = {"listings" : Listing.objects.all()} 
+    args = {"listings" : Listing.objects.filter(user=request.user)} 
     return render(request, "profile_page.html", args)
 
 @login_required
 def index(request):
+    # Event.objects.filter(universities=pk)
     args = {"events": Event.objects.all()}  # TODO filter on uni
+    args = {"events" : Event.objects.filter(universities=request.user.university)} 
 
     return render(request, "home.html", args)

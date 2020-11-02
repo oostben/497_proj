@@ -7,7 +7,8 @@
 <ul>
     <li>{{ object.event.name }}</li>
     <li>{{ object.event.location }}</li>
-    <li>{{ object.event.time }}</li>
+    <li>{{ object.event.date }}</li>
+
 </ul>
 
 <h3>Ticket info</h2>
@@ -15,6 +16,13 @@
     <li>Seller: {{ object.user.username }}</li>
     <li>Price: {{ object.price }}</li>
     <li>Quantity available: {{ object.quantity }}</li>
+    <li>Contact: {{ object.user.email }}</li>
+    <li>Description: {{ object.description }}</li>
+    <li>Posted On: {{ object.pub_date }}</li>
+
+
+
+
 </ul>
 
 <h3>Purchase</h2>

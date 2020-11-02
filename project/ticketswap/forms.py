@@ -1,6 +1,8 @@
 from django import forms
+from django.forms import widgets  
+
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import University, User
+from .models import University, User, Listing
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -28,3 +30,11 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = User
         fields = ("username", "email")
+
+# class ListingForm(forms.ModelForm):
+#     class Meta:
+#         model = Listing
+#         fields = ("user", "event", "pub_date", "price", "quantity", "description")
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+

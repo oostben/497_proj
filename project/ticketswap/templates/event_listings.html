@@ -10,7 +10,6 @@
 
 {% for listing in listings %}
 <table>
-
     <a href="/ticketswap/listing/{{ listing.id }}/detail"> {{ listing.user }} - ${{ listing.price }} - Quantity: {{ listing.quantity }}</a>
 </table>
 {% endfor %}

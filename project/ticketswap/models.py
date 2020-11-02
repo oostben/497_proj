@@ -12,7 +12,7 @@ class University(models.Model):
 
 
 class User(AbstractUser):
-    university = models.ForeignKey(University, on_delete=models.CASCADE)
+    university = models.ForeignKey(University, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.username
@@ -20,7 +20,7 @@ class User(AbstractUser):
 
 class Event(models.Model):
     name = models.CharField(max_length=500)
-    time = models.DateTimeField()
+    date = models.DateField()
     location = models.CharField(max_length=500)
     description = models.CharField(max_length=10000)
 
@@ -33,7 +33,7 @@ class Event(models.Model):
 class Listing(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    pub_date = models.DateTimeField()
+    pub_date = models.DateField(auto_now_add=True)
 
     price = models.FloatField()
     quantity = models.IntegerField()

@@ -16,11 +16,7 @@
     BO 3) profile page (active listings)
     PG 4) view listing page (with buy options and link to user profile) -->
     <tr>
-      <th>In {{ event.location }} at </th>
-
-      {% for uni in event.universities.all %}
-        <th>{{ uni }}</th>
-      {% endfor %}
+      <th>{{ event.location }}</th>
     </tr>
 
     <a href="/ticketswap/event/{{ event.id }}/listings"> {{ event.name }}</a>
