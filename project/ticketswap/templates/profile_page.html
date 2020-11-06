@@ -11,7 +11,8 @@
     <br>
     You are registered at {{ user.university }}
     <br>
-
+    Your venmo is {{ user.venmo }}
+    <br>
     <a href="{% url 'logout' %}">Log Out</a>
     <br>
     <a href="/ticketswap/user/{{ user.pk }}/update">Update Profile</a>

@@ -14,9 +14,10 @@
 <h3>Ticket info</h2>
 <ul>
     <li>Seller: {{ object.user.username }}</li>
-    <li>Price: {{ object.price }}</li>
+    <li>Price: ${{ object.price }}</li>
     <li>Quantity available: {{ object.quantity }}</li>
     <li>Contact: {{ object.user.email }}</li>
+    <li>Venmo: {{ object.user.venmo }}</li>
     <li>Description: {{ object.description }}</li>
     <li>Posted On: {{ object.pub_date }}</li>
 
@@ -26,7 +27,10 @@
 </ul>
 
 <h3>Purchase</h2>
-<form action="/ticketswap/listing/{{ object.id }}/purchase" method="post">
+
+  <p>To purchase this ticket, venmo {{ object.user.username }} ${{ object.price }} to the venmo: {{ object.user.venmo }}</p>
+  <p>You can email {{ object.user.username }} at {{ object.user.email }} to discuss the price</p>
+<!-- <form action="/ticketswap/listing/{{ object.id }}/purchase" method="post">
     <label for="quantity">Quantity</label>
 
     <input type="text" name="quantity" 
@@ -39,5 +43,5 @@
 
     <br>
     <button class="btn btn-primary" type="submit">Buy</submit>
-</form>
+</form> -->
 {% endblock %}

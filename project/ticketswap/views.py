@@ -96,13 +96,19 @@ class UniversityDelete(DeleteView):
 
 class UserUpdate(UpdateView):
     model = User
-    fields = ["username", "email", "university"]
+    fields = ["username", "email", "university", "venmo"]
     success_url = "/ticketswap/"
 
 
 class UserDelete(DeleteView):
     model = User
     success_url = "/ticketswap/accounts/login"
+
+
+# def buyTicket(request, pk):
+#     args = {"listing": Listing.objects.filter(listing=pk)}
+#     return render(request, "buy_ticket.html", args)
+
 
 def eventListings(request, pk):
     args = {"listings": Listing.objects.filter(event=pk)}  # TODO filter on event

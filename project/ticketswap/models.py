@@ -13,7 +13,8 @@ class University(models.Model):
 
 class User(AbstractUser):
     university = models.ForeignKey(University, on_delete=models.CASCADE, null=True)
-
+    venmo = models.CharField(max_length=500)
+    
     def __str__(self):
         return self.username
 
