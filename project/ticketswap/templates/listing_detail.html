@@ -30,6 +30,13 @@
 
   <p>To purchase this ticket, venmo {{ object.user.username }} ${{ object.price }} to the venmo: {{ object.user.venmo }}</p>
   <p>You can email {{ object.user.username }} at {{ object.user.email }} to discuss the price</p>
+  <br>
+  
+  {% if listing.user == user %}
+    
+  <p>Delete this listing: <a href="/ticketswap/listing/{{ object.id }}/delete"> delete</a> </p>
+
+  {% endif %}
 <!-- <form action="/ticketswap/listing/{{ object.id }}/purchase" method="post">
     <label for="quantity">Quantity</label>
 
