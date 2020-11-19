@@ -22,7 +22,8 @@
     <a href="/ticketswap/user/{{ user.pk }}/delete">Delete Profile</a>
     <br>
      
-    My listings:
+    Your listings:
+    <br>
     <br>
     {% for listing in listings %}
         {% if listing.user == user %}
@@ -33,6 +34,49 @@
         </table>
         {% endif %}
     {% endfor %}
+    <br>
+
+    <a href="/ticketswap/message/create/"> New Message </a>
+    <br>
+    Your messages:
+    <br>
+    <br>
+
+    {% for message in chats %}
+        {% if message.sender == user %}
+        <table>
+          From: {{ message.sender }}
+          <br>
+          To: {{ message.receiver }}
+          <br>
+          Date Sent: {{ message.pub_date }}
+          <br>
+          Message:
+          <br>
+          {{ message.message }}
+          <br>
+          <br>
+        </table>
+        {% endif %}
+
+        {% if message.receiver == user %}
+        <table>
+          From: {{ message.sender }}
+          <br>
+          To: {{ message.receiver }}
+          <br>
+          Date Sent: {{ message.pub_date }}
+          <br>
+          Message:
+          <br>
+          {{ message.message }}
+          <br>
+          <br>
+
+        </table>
+        {% endif %}
+    {% endfor %}
+
 
 {% else %}
   <p>You are not logged in</p>

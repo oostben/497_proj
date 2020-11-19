@@ -27,6 +27,7 @@ urlpatterns = [
     path("listing/<pk>/delete/", views.ListingDelete.as_view(), name="listing_delete"),
     path("event/<pk>/listings/", views.eventListings, name="event_listings"),
     path("profile/", views.profile_page, name="profile_page"),
-    # path("listing/<pk>/purchase/", views.buyTicket, name="buy_ticket")
+
+    path("message/create/", views.MessageCreate.as_view(), name="event_create"),
 
 ]

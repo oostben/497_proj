@@ -48,3 +48,9 @@ class Transaction(models.Model):
     date_of_sale = models.DateTimeField()
     price = models.FloatField()
     quantity = models.IntegerField()
+
+class Message(models.Model):
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='sender', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='receiver', on_delete=models.CASCADE)
+    pub_date = models.DateTimeField(auto_now_add=True)
+    message = models.CharField(max_length=10000)

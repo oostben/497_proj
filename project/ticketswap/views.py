@@ -8,7 +8,8 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from .forms import CustomUserCreationForm
-from .models import Event, Listing, University, User
+from .models import Event, Listing, University, User, Message
+from django.db.models import Q
 
 
 class SignUpView(CreateView):
@@ -55,6 +56,17 @@ class ListingCreate(CreateView):
     #     form.fields['pub_date'].widget = forms.SelectDateWidget()
     #     return form
     success_url = "/ticketswap/"
+
+
+class MessageCreate(CreateView):
+    model = Message
+    fields = ["receiver", "message"]
+    def form_valid(self, form):
+        sender = self.request.user
+        form.instance.sender = sender
+        return super().form_valid(form)
+    success_url = "/ticketswap/profile"
+
 
 
 class ListingUpdate(UpdateView):
@@ -120,7 +132,7 @@ def eventListings(request, pk):
 
 @login_required
 def profile_page(request):
-    args = {"listings" : Listing.objects.filter(user=request.user)} 
+    args = {"listings" : Listing.objects.filter(user=request.user), "chats": Message.objects.all().order_by('pub_date').reverse()}
     return render(request, "profile_page.html", args)
 
 @login_required
