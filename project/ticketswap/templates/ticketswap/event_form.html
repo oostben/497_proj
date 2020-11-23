@@ -3,9 +3,9 @@
 {% block title %}Create an event{% endblock %}
 
 {% block content %}
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Save" />
+    <button type="submit">Submit New Event</button>
 </form>
 {% endblock %}
