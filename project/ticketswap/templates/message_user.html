@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ other_user }}{% endblock %}
+
+
+{% block content %}
+
+<h4>
+{{ other_user }}
+</h6>
+
+{% for m in x_messages %}
+    {% if m.sender == user %}
+    <div class="row justify-content-end">
+        <div class="alert alert-info">
+            {{ m.pub_date }}
+            <br>
+            {{ m.message }}
+        </div>
+        <div class="col-1">
+            
+        </div>
+    </div>
+    {% endif %}
+
+    {% if m.receiver == user %}
+    <div class="row justify-content-start">
+        <div class="col-1">
+            
+        </div>
+        <div class="alert alert-secondary">
+            {{ m.pub_date }}
+            <br>
+            {{ m.message }}
+        </div>
+    </div>
+    {% endif %}
+
+{% endfor %}
+
+<div>
+<form action="/ticketswap/message/create/" method="post">
+    {% csrf_token %}
+    <label for="message"></label>
+    <input type="text" name="message" class="form-control" id="message">
+
+    <input type="hidden" name="receiver" id="receiver" value="{{ other_user.id }}">
+
+    <button class="btn btn-primary">Send</button>
+</form>
+</div>
+
+{% endblock %}

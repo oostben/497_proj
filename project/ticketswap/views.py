@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django import forms
@@ -21,12 +21,14 @@ class SignUpView(CreateView):
 class EventCreate(CreateView):
     model = Event
     fields = ["name", "date", "location", "description", "universities"]
+
     def get_form(self):
-        '''add date picker in forms'''
+        """add date picker in forms"""
         form = super(EventCreate, self).get_form()
 
-        form.fields['date'].widget = forms.SelectDateWidget()
+        form.fields["date"].widget = forms.SelectDateWidget()
         return form
+
     success_url = "/ticketswap/"
 
 
@@ -44,6 +46,7 @@ class EventDelete(DeleteView):
 class ListingCreate(CreateView):
     model = Listing
     fields = ["event", "price", "quantity", "description"]
+
     def form_valid(self, form):
         user = self.request.user
         form.instance.user = user
@@ -61,12 +64,15 @@ class ListingCreate(CreateView):
 class MessageCreate(CreateView):
     model = Message
     fields = ["receiver", "message"]
+
     def form_valid(self, form):
         sender = self.request.user
         form.instance.sender = sender
         return super().form_valid(form)
-    success_url = "/ticketswap/profile"
 
+    def get_success_url(self):
+        r_id = self.object.receiver.pk
+        return f"/ticketswap/message/conv/{r_id}"
 
 
 class ListingUpdate(UpdateView):
@@ -106,7 +112,6 @@ class UniversityDelete(DeleteView):
     success_url = reverse_lazy("/ticketswap/")
 
 
-
 class UserUpdate(UpdateView):
     model = User
     fields = ["username", "email", "university", "venmo"]
@@ -130,15 +135,64 @@ def eventListings(request, pk):
 
     return render(request, "event_listings.html", args)
 
+
 @login_required
 def profile_page(request):
-    args = {"listings" : Listing.objects.filter(user=request.user), "chats": Message.objects.all().order_by('pub_date').reverse()}
+    args = {
+        "listings": Listing.objects.filter(user=request.user),
+        "chats": Message.objects.all().order_by("pub_date").reverse(),
+    }
     return render(request, "profile_page.html", args)
+
 
 @login_required
 def index(request):
     # Event.objects.filter(universities=pk)
     args = {"events": Event.objects.all()}  # TODO filter on uni
-    args = {"events" : Event.objects.filter(universities=request.user.university)} 
+    args = {"events": Event.objects.filter(universities=request.user.university)}
 
     return render(request, "home.html", args)
+
+
+@login_required
+def message(request):
+    messages = Message.for_user(request.user)
+    other_users = set()
+    for m in messages:
+        if m.sender == request.user:
+            other_users.add(m.receiver)
+        else:
+            other_users.add(m.sender)
+
+    class Conversation:
+        def __init__(self, messages):
+            self.messages = messages
+            self.len = len(messages)
+            sorted(self.messages, key=lambda x: x.pub_date)
+
+    conversations = {}
+    for user in other_users:
+        conversations[user] = Conversation(
+            [m for m in messages if (m.sender == user or m.receiver == user)]
+        )
+
+    args = {"conversations": conversations}
+
+    return render(request, "message.html", args)
+
+
+@login_required
+def message_user(request, pk):
+    other_user = get_object_or_404(User, pk=pk)
+    messages = Message.for_user(request.user)
+
+    messages = [
+        m for m in messages if (m.sender == other_user or m.receiver == other_user)
+    ]
+
+    sorted(messages, key=lambda x: x.pub_date)
+
+    # 'x_' needed to avoid name collision with session messages
+    args = {"other_user": other_user, "x_messages": messages}
+
+    return render(request, "message_user.html", args)

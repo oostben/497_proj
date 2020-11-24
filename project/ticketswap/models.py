@@ -14,7 +14,7 @@ class University(models.Model):
 class User(AbstractUser):
     university = models.ForeignKey(University, on_delete=models.CASCADE, null=True)
     venmo = models.CharField(max_length=500)
-    
+
     def __str__(self):
         return self.username
 
@@ -49,8 +49,26 @@ class Transaction(models.Model):
     price = models.FloatField()
     quantity = models.IntegerField()
 
+
 class Message(models.Model):
-    sender = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='sender', on_delete=models.CASCADE)
-    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='receiver', on_delete=models.CASCADE)
+    sender = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name="sender", on_delete=models.CASCADE
+    )
+    receiver = models.ForeignKey(
+        settings.AUTH_USER_MODEL, related_name="receiver", on_delete=models.CASCADE
+    )
     pub_date = models.DateTimeField(auto_now_add=True)
     message = models.CharField(max_length=10000)
+
+    @classmethod
+    def for_user(cls, user):
+        as_sender = cls.objects.filter(sender=user)
+        as_receiver = cls.objects.filter(receiver=user)
+
+        result = [m for m in as_sender]
+        result.extend([m for m in as_receiver])
+
+        return result
+
+    def __str__(self):
+        return f"{self.pub_date}: {self.message}"

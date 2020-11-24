@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+
+{% block content %}
+
+{% for user, convo in conversations.items %}
+<a href="message/{{ user.id }}">
+  {{ user }} ({{ convo.len }})
+</a>
+
+{% endfor %}
+
+{% endblock %}
