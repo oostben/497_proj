@@ -36,47 +36,6 @@
     {% endfor %}
     <br>
 
-    <a href="/ticketswap/message/create/"> New Message </a>
-    <br>
-    Your messages:
-    <br>
-    <br>
-
-    {% for message in chats %}
-        {% if message.sender == user %}
-        <table>
-          From: {{ message.sender }}
-          <br>
-          To: {{ message.receiver }}
-          <br>
-          Date Sent: {{ message.pub_date }}
-          <br>
-          Message:
-          <br>
-          {{ message.message }}
-          <br>
-          <br>
-        </table>
-        {% endif %}
-
-        {% if message.receiver == user %}
-        <table>
-          From: {{ message.sender }}
-          <br>
-          To: {{ message.receiver }}
-          <br>
-          Date Sent: {{ message.pub_date }}
-          <br>
-          Message:
-          <br>
-          {{ message.message }}
-          <br>
-          <br>
-
-        </table>
-        {% endif %}
-    {% endfor %}
-
 
 {% else %}
   <p>You are not logged in</p>

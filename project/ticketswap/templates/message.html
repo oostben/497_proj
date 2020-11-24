@@ -6,7 +6,7 @@
 {% block content %}
 
 {% for user, convo in conversations.items %}
-<a href="message/{{ user.id }}">
+<a href="message/conv/{{ user.id }}">
   {{ user }} ({{ convo.len }})
 </a>
 
