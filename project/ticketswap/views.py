@@ -20,7 +20,7 @@ class SignUpView(CreateView):
 
 class EventCreate(CreateView):
     model = Event
-    fields = ["name", "date", "location", "description", "universities"]
+    fields = ["name", "date", "location", "description", "universities", "cover"]
 
     def get_form(self):
         """add date picker in forms"""
@@ -147,8 +147,6 @@ def profile_page(request):
 
 @login_required
 def index(request):
-    # Event.objects.filter(universities=pk)
-    args = {"events": Event.objects.all()}  # TODO filter on uni
     args = {"events": Event.objects.filter(universities=request.user.university)}
 
     return render(request, "home.html", args)

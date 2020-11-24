@@ -24,6 +24,7 @@ class Event(models.Model):
     date = models.DateField()
     location = models.CharField(max_length=500)
     description = models.CharField(max_length=10000)
+    cover = models.ImageField(upload_to='images/', null=True)
 
     universities = models.ManyToManyField(University)
 

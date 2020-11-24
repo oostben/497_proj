@@ -16,10 +16,10 @@
     BO 3) profile page (active listings)
     PG 4) view listing page (with buy options and link to user profile) -->
     <tr>
-      <th>{{ event.location }}</th>
+      <th><img src="{{event.cover.url}}" alt="pic" height=200px width=300px></th>
+      <th><a href="/ticketswap/event/{{ event.id }}/listings"> {{ event.name }}</a></th>
+      <th>,  Location: {{ event.location }}</th>
     </tr>
-
-    <a href="/ticketswap/event/{{ event.id }}/listings"> {{ event.name }}</a>
 </table>
 {% endfor %}
 {% else %}
