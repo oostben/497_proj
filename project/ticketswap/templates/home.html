@@ -11,15 +11,18 @@
   <br>
   {% for event in events %}
   <table>
-    <!-- ES 1) home page with proper table (inc. name, location, filtering by uni, etc.)
-    DB 2) view event page (list of listings, link to create a listing for this event)
-    BO 3) profile page (active listings)
-    PG 4) view listing page (with buy options and link to user profile) -->
     <tr>
       <th><img src="{{event.cover.url}}" alt="pic" height=200px width=300px></th>
-      <th><a href="/ticketswap/event/{{ event.id }}/listings"> {{ event.name }}</a></th>
-      <th>,  Location: {{ event.location }}</th>
     </tr>
+    <tr>
+      <th><a href="/ticketswap/event/{{ event.id }}/listings"> {{ event.name }}</a></th>
+    </tr>
+    <tr>
+      <th>Location: {{ event.location }}</th>
+      <br>
+    </tr>
+
+    
 </table>
 {% endfor %}
 {% else %}
